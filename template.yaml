@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  lambda set ssm parameter
+
+Parameters:
+  BuildId:
+    Type: String
+    Default: unknown
+
+Resources:
+  LambdaFunctionOverHttps:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Description: lambda set ssm parameter
+      Handler: com.hello.Handler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Timeout: 60
+
+  MiraklProductExportUpdatedSince:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /lambda/demo/ssm-parameter
+      Type: String
+      Value: "1970-01-01T00:00:00Z"
+      Description: "lambda set ssm parameter"
+      Tags:
+        owner: taixingbi
+        projectname: Hello world
+        application: demo
+        exposure: private
+        compliance: non-sensitive
+        banner: s5a
